@@ -3,54 +3,59 @@
 Contact::Contact(void) {}
 Contact::~Contact(void) {}
 
-/*bool	is_strnum(std::string &s) {
-	std::string::const_iterator	it = s.begin();
-	while (it != s.end()) {
-		if (!std::isdigit(*it++)) {
+bool	isStrnum(std::string s) {
+	std::string::iterator	it = s.begin();
+
+	while (it != s.end())
+		if (!std::isdigit(*it++))
 			return (false);
-		}
-	}
 	return (!s.empty());
-}*/
+}
+
+void	getInput(std::string *var, std::string title) {
+	while (1) {
+		std::cout << "Enter " << title << ": ";
+		std::getline(std::cin, *var);
+		if (!var->empty())
+			break ;
+		std::cout << "Error: Saved contact can't have empty fields" << std::endl;
+	}
+}
 
 void	Contact::setAttribute(int id) {
-	std::string	temp;
-
 	this->_id = id + 1;
-	std::cout << "Enter First Name: ";
-	std::getline(std::cin, this->_firstName);
-	std::cout << "Enter Last Name: ";
-	std::getline(std::cin, this->_lastName);
-	std::cout << "Enter Nickname: ";
-	std::getline(std::cin, this->_nickname);
-	std::cout << "Enter Phone Number: ";
-	std::getline(std::cin, this->_phone);
-	std::cout << "Enter Darkest Secret: ";
-	std::getline(std::cin, this->_secret);
+	getInput(&this->_firstName, "First Name");
+	getInput(&this->_lastName, "Last Name");
+	getInput(&this->_nickname, "Nickname");
+	while (1) {
+		getInput(&this->_phone, "Phone Number");
+		if (isStrnum(this->_phone))
+			break ;
+		std::cout << "Error: Phone number must contain numbers only" << std::endl;
+	}
+	getInput(&this->_secret, "Darkest Secret");
 }
 
 void	Contact::printAttribute(void) {
-	std::cout << std::left << std::setw(16) << "Index: " << this->_id << std::endl;
-	std::cout << std::left << std::setw(16) << "First Name: " << this->_firstName << std::endl;
-	std::cout << std::left << std::setw(16) << "Last Name: " << this->_lastName << std::endl;
-	std::cout << std::left << std::setw(16) << "Nickname: " << this->_nickname << std::endl;
-	std::cout << std::left << std::setw(16) << "Phone Number: " << this->_phone << std::endl;
-	std::cout << std::left << std::setw(16) << "Darkest Secret: " << this->_secret << std::endl;
+	std::cout << std::left << std::setw(16) << "Index: " << this->_id << std::endl
+		<< std::left << std::setw(16) << "First Name: " << this->_firstName << std::endl
+		<< std::left << std::setw(16) << "Last Name: " << this->_lastName << std::endl
+		<< std::left << std::setw(16) << "Nickname: " << this->_nickname << std::endl
+		<< std::left << std::setw(16) << "Phone Number: " << this->_phone << std::endl
+		<< std::left << std::setw(16) << "Darkest Secret: " << this->_secret << std::endl;
+}
+
+void	printCol(std::string var) {
+	if (var.length() > 10)
+		std::cout << "|" << var.substr(0, 9) << ".";
+	else
+		std::cout << "|" << std::right << std::setw(10) << var;
 }
 
 void	Contact::printRow(void) {
 	std::cout << "|" << std::right << std::setw(10) << this->_id;
-	if (this->_firstName.length() > 10)
-		std::cout << "|" << this->_firstName.substr(0, 9) << ".";
-	else
-		std::cout << "|" << std::right << std::setw(10) << this->_firstName;
-	if (this->_lastName.length() > 10)
-		std::cout << "|" << this->_lastName.substr(0, 9) << ".";
-	else
-		std::cout << "|" << std::right << std::setw(10) << this->_lastName;
-	if (this->_nickname.length() > 10)
-		std::cout << "|" << this->_nickname.substr(0, 9) << ".";
-	else
-		std::cout << "|" << std::right << std::setw(10) << this->_nickname;
+	printCol(this->_firstName);
+	printCol(this->_lastName);
+	printCol(this->_nickname);
 	std::cout << "|" << std::endl;
 }

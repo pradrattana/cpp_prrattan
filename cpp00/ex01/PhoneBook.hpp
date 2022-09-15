@@ -20,7 +20,7 @@ public:
 private:
 	static const int	_MAX = 8;
 	Contact				_contacts[_MAX];
-	int					_n_contact;
+	int					_nbContact;
 };
 
 #endif
