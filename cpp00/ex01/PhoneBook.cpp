@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "PhoneBook.hpp"
-  
+
 PhoneBook::PhoneBook(void) {
 	this->_nbContact = 0;
 }
