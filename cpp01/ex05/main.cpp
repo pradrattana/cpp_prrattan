@@ -26,4 +26,9 @@ int	main(void) {
 
 	std::cout << std::endl << "Harl makes an 'ERROR' level comment" << std::endl;
 	h.complain("eRRor");
+
+	std::cout << std::endl << "Harl doesn't make a valid level comment" << std::endl;
+	h.complain("");
+	h.complain("???");
+	h.complain("hello");
 }

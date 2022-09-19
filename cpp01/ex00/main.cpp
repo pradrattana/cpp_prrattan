@@ -13,10 +13,18 @@
 #include "Zombie.hpp"
 
 int main(void) {
-	Zombie	stack_zombie("Stack Zombie");
-	Zombie	*heap_zombie = newZombie("Heap Zombie");
+	std::cout << ">> Heap Zombie" << std::endl;
+	Zombie	*heapZombie = newZombie("Heap Zombie");
+	heapZombie->announce();
+	delete heapZombie;
 
+	std::cout << std::endl << ">> Stack Zombie" << std::endl;
+	Zombie	stackZombie("Stack Zombie");
+	stackZombie.announce();
+
+	std::cout << std::endl << ">> Random Chump Zombie" << std::endl;
 	randomChump("Random Chump Zombie");
-	delete heap_zombie;
+	std::cout << std::endl;
+
 	return (0);
 }

@@ -12,17 +12,14 @@
 
 #include "Zombie.hpp"
 
-Zombie::Zombie(void) {
-	setName("no-name");
-	//this->name = "no-name";
-}
+Zombie::Zombie(void):
+	name("no-name") {}
 
-Zombie::Zombie(std::string name) {
-	setName(name);
-}
+Zombie::Zombie(std::string name):
+	name(name) {}
 
 Zombie::~Zombie(void) {
-	std::cout << this->name << " has been destroyed" << std::endl;
+	std::cout << this->name << " is dead" << std::endl;
 }
 
 void	Zombie::announce(void) {

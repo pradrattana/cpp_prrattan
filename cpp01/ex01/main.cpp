@@ -14,10 +14,25 @@
 
 int main() {
 	Zombie	*horde;
-	int		hordeNumber = 10;
-	
-	horde = zombieHorde(hordeNumber, "Horde");
-	delete [] horde;
-	horde = zombieHorde(0, "fail");
+
+	std::cout << ">> Horde Zombie" << std::endl;
+	horde = zombieHorde(5, "Horde Zombie");
+	for (int i = 0; i < 5; i++) {
+		std::cout << "  > announce index " << i << std::endl;
+		horde[i].announce();
+	}
+	std::cout << "  > delete" << std::endl;
+	delete []horde;
+
+	std::cout << std::endl << ">> Alone Zombie" << std::endl;
+	horde = zombieHorde(1, "Alone Zombie");
+	std::cout << "  > announce index " << 0 << std::endl;
+	horde[0].announce();
+	std::cout << "  > delete" << std::endl;
+	delete []horde;
+
+	std::cout << std::endl << ">> Failed Zombie" << std::endl;
+	horde = zombieHorde(-1, "Failed Zombie");
+
 	return (0);
 }

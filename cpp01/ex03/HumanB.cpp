@@ -18,10 +18,12 @@ HumanB::HumanB(std::string name):
 HumanB::~HumanB(void) {}
 
 void	HumanB::attack(void) const {
+	std::cout << this->name;
 	if (this->weapon)
-		std::cout << this->name << " attacks with their " << this->weapon->getType() << std::endl;
+		std::cout << " attacks with their " << this->weapon->getType();
 	else
-		std::cout << this->name << " has no weapon " << std::endl;
+		std::cout << " has no weapon ";
+	std::cout << std::endl;
 }
 
 void	HumanB::setWeapon(Weapon &weapon) {

@@ -12,23 +12,27 @@
 
 #include <iostream>
 #include <fstream>
-#include <string>
+#include <cstring>
+#include <cerrno>
 
-void	myOpenFile(std::fstream &file, std::string name, std::ios::openmode flag) {
+int	myOpenFile(std::fstream &file, std::string name, std::ios::openmode flag) {
 	file.open(name.c_str(), flag);
 	if (!file.is_open())
-		throw "File couldn't be opened.";
+		std::cout << name.c_str() << ": " << std::strerror(errno) << std::endl;
+	return (file.is_open());
 }
 
 std::string	myReplaceLine(std::string line, std::string search, std::string replace) {
-	std::string		str;
-	std::size_t		find;
+	std::string	str;
 
-	for (find = line.find(search); find != std::string::npos; find = line.find(search))
-	{
-		str.append(line.substr(0, find));
-		str.append(replace);
-		line = line.substr(find + search.length());
+	if (search.length() > 0) {
+		for (std::size_t find = line.find(search);
+			find != std::string::npos; find = line.find(search))
+		{
+			str.append(line.substr(0, find));
+			str.append(replace);
+			line = line.substr(find + search.length());
+		}
 	}
 	str.append(line);
 	return (str);
@@ -43,17 +47,18 @@ int	main(int argc, char **argv) {
 		std::fstream	in;
 		std::fstream	out;
 
-		/*if (filename.length() == 0)
-			throw "Filename is empty.";
-		else if (search.length() == 0)
-			throw "Search string is empty.";
-		else if (replace.length() == 0)
-			throw "Replace string is empty.";*/
-		myOpenFile(in, filename, std::ios::in);
-		myOpenFile(out, filename + ".replace", std::ios::out);
+		if (!myOpenFile(in, filename, std::ios::in))
+			return (1);
+		if (!myOpenFile(out, filename + ".replace", std::ios::out)) {
+			in.close();
+			return (1);
+		}
 		while (std::getline(in, line))
 			out << myReplaceLine(line, search, replace) << std::endl;
+		in.close();
+		out.close();
+		return (0);
 	}
-	//else
-	return (0);
+	std::cout << "Error: Expected 3 arguments (filename searchstring replacestring)" << std::endl;
+	return (1);
 }
