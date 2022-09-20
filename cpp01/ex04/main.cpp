@@ -6,7 +6,7 @@
 /*   By: prrattan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 14:58:49 by prrattan          #+#    #+#             */
-/*   Updated: 2022/09/18 14:58:51 by prrattan         ###   ########.fr       */
+/*   Updated: 2022/09/20 11:46:39 by prrattan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	main(int argc, char **argv) {
 		out.close();
 		return (0);
 	}
-	std::cout << "Error: Expected 3 arguments (filename searchstring replacestring)" << std::endl;
+	std::cout << "Error: Expected 3 arguments "
+		<< "(filename, search_string, replace_string)" << std::endl;
 	return (1);
 }
