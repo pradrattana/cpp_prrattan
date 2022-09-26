@@ -12,7 +12,7 @@
 
 #include "Point.hpp"
 
-bool	isTriangle(Point a, Point b, Point c) {
+static bool	isTriangle(Point a, Point b, Point c) {
 	if (a == b || a == c || b == c)
 		return (false);
 	if ((a.getY() - b.getY()) * (a.getX() - c.getX()) == (a.getY() - c.getY()) * (a.getX() - b.getX()))
@@ -20,7 +20,10 @@ bool	isTriangle(Point a, Point b, Point c) {
 	return (true);
 }
 
-Fixed	getTriangleArea(Point const a, Point const b, Point const c) {
+static Fixed	getTriangleArea(Point const a, Point const b, Point const c) {
+	if (!isTriangle(a, b, c))
+		return (Fixed(0));
+
 	Fixed	ax_by(a.getX() * b.getY());
 	Fixed	bx_cy(b.getX() * c.getY());
 	Fixed	cx_ay(c.getX() * a.getY());
@@ -46,8 +49,6 @@ bool	bsp(Point const a, Point const b, Point const c, Point const point) {
 	Fixed	area3(getTriangleArea(point, b, c));
 
 	if ((area1 == Fixed(0)) || (area2 == Fixed(0)) || (area3 == Fixed(0)))
-		return (false);
-	if ((area1 / areaSum > Fixed(1)) || (area2 / areaSum > Fixed(1)) || (area3 / areaSum > Fixed(1)))
 		return (false);
 
 	Fixed	ratio(((area1 + area2) + area3) / areaSum);

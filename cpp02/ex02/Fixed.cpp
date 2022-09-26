@@ -42,49 +42,49 @@ Fixed::~Fixed(void) {
 	// std::cout << "Destructor called" << std::endl;
 }
 
-bool Fixed::operator> (const Fixed &fixed) {
+bool Fixed::operator> (const Fixed &fixed) const {
 	return (this->getRawBits() > fixed.getRawBits());
 }
 
-bool Fixed::operator< (const Fixed &fixed) {
+bool Fixed::operator< (const Fixed &fixed) const {
 	return (this->getRawBits() < fixed.getRawBits());
 }
 
-bool Fixed::operator>= (const Fixed &fixed) {
+bool Fixed::operator>= (const Fixed &fixed) const {
 	return (this->getRawBits() >= fixed.getRawBits());
 }
 
-bool Fixed::operator<= (const Fixed &fixed) {
+bool Fixed::operator<= (const Fixed &fixed) const {
 	return (this->getRawBits() <= fixed.getRawBits());
 }
 
-bool Fixed::operator== (const Fixed &fixed) {
+bool Fixed::operator== (const Fixed &fixed) const {
 	return (this->getRawBits() == fixed.getRawBits());
 }
 
-bool Fixed::operator!= (const Fixed &fixed) {
+bool Fixed::operator!= (const Fixed &fixed) const {
 	return (this->getRawBits() != fixed.getRawBits());
 }
 
-Fixed Fixed::operator+ (const Fixed &fixed) {
+Fixed Fixed::operator+ (const Fixed &fixed) const {
 	Fixed	newFixed;
 	newFixed.setRawBits(this->getRawBits() + fixed.getRawBits());
 	return (newFixed);
 }
 
-Fixed Fixed::operator- (const Fixed &fixed) {
+Fixed Fixed::operator- (const Fixed &fixed) const {
 	Fixed	newFixed;
 	newFixed.setRawBits(this->getRawBits() - fixed.getRawBits());
 	return (newFixed);
 }
 
-Fixed Fixed::operator* (const Fixed &fixed) {
+Fixed Fixed::operator* (const Fixed &fixed) const {
 	Fixed	newFixed;
 	newFixed.setRawBits(this->getRawBits() * fixed.getRawBits() >> fractionalBits);
 	return (newFixed);
 }
 
-Fixed Fixed::operator/ (const Fixed &fixed) {
+Fixed Fixed::operator/ (const Fixed &fixed) const {
 	Fixed	newFixed;
 	newFixed.setRawBits((this->getRawBits() << fractionalBits) / fixed.getRawBits());
 	return (newFixed);
@@ -130,27 +130,19 @@ int	Fixed::toInt(void) const {
 }
 
 Fixed &Fixed::min(Fixed &a, Fixed &b) {
-	if (a < b)
-		return (a);
-	return (b);
+	return (a < b ? a : b);
 }
 
 const Fixed &Fixed::min(const Fixed &a, const Fixed &b) {
-	if (a.toFloat() < b.toFloat())
-		return (a);
-	return (b);
+	return (a < b ? a : b);
 }
 
 Fixed &Fixed::max(Fixed &a, Fixed &b) {
-	if (a > b)
-		return (a);
-	return (b);
+	return (a > b ? a : b);
 }
 
 const Fixed &Fixed::max(const Fixed &a, const Fixed &b) {
-	if (a.toFloat() > b.toFloat())
-		return (a);
-	return (b);
+	return (a > b ? a : b);
 }
 
 std::ostream &operator<< (std::ostream &os, const Fixed &fixed) {

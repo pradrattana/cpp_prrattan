@@ -25,8 +25,8 @@ public:
 	Point &operator= (const Point &point);
 	~Point(void);
 
-	bool operator== (const Point &point);
-	bool operator!= (const Point &point);
+	bool operator== (const Point &point) const;
+	bool operator!= (const Point &point) const;
 
 	Fixed	getX(void) const;
 	Fixed	getY(void) const;

@@ -25,16 +25,16 @@ public:
 	Fixed &operator= (const Fixed &fixed);
 	~Fixed(void);
 
-	bool operator> (const Fixed &fixed);
-	bool operator< (const Fixed &fixed);
-	bool operator>= (const Fixed &fixed);
-	bool operator<= (const Fixed &fixed);
-	bool operator== (const Fixed &fixed);
-	bool operator!= (const Fixed &fixed);
-	Fixed operator+ (const Fixed &fixed);
-	Fixed operator- (const Fixed &fixed);
-	Fixed operator* (const Fixed &fixed);
-	Fixed operator/ (const Fixed &fixed);
+	bool operator> (const Fixed &fixed) const;
+	bool operator< (const Fixed &fixed) const;
+	bool operator>= (const Fixed &fixed) const;
+	bool operator<= (const Fixed &fixed) const;
+	bool operator== (const Fixed &fixed) const;
+	bool operator!= (const Fixed &fixed) const;
+	Fixed operator+ (const Fixed &fixed) const;
+	Fixed operator- (const Fixed &fixed) const;
+	Fixed operator* (const Fixed &fixed) const;
+	Fixed operator/ (const Fixed &fixed) const;
 	Fixed &operator++ (void);
 	Fixed operator++ (int);
 	Fixed &operator-- (void);
