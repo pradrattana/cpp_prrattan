@@ -1,0 +1,46 @@
+#include "DiamondTrap.hpp"
+
+DiamondTrap::DiamondTrap(void):
+	ClapTrap("no-name_clap_name"), _name("no-name") {
+		std::cout << "Default constructor called by <DiamondTrap "
+			<< this->_name << ">" << std::endl;
+		this->_hit = FragTrap::_HIT;
+		this->_energy = ScavTrap::_ENERGY;
+		this->_damage = FragTrap::_DAMAGE;
+	}
+
+DiamondTrap::DiamondTrap(std::string name):
+	ClapTrap(name + "_clap_name"), _name(name) {
+		std::cout << "Parameterized constructor called by <DiamondTrap "
+			<< this->_name << ">" << std::endl;
+		this->_hit = FragTrap::_HIT;
+		this->_energy = ScavTrap::_ENERGY;
+		this->_damage = FragTrap::_DAMAGE;
+	}
+
+DiamondTrap::DiamondTrap(const DiamondTrap &diamondTrap) {
+	std::cout << "Copy constructor called by <DiamondTrap "
+		<< diamondTrap._name << ">" << std::endl;
+	*this = diamondTrap;
+}
+
+DiamondTrap::~DiamondTrap(void) {
+	std::cout << "Destructor called by <DiamondTrap "
+		<< this->_name << ">" << std::endl;
+}
+
+DiamondTrap &DiamondTrap::operator= (const DiamondTrap &diamondTrap) {
+	std::cout << "Copy assignment operator called by <DiamondTrap "
+			<< diamondTrap._name << ">" << std::endl;
+	this->ClapTrap::_name = diamondTrap.ClapTrap::_name;
+	this->_name = diamondTrap._name;
+	this->_hit = diamondTrap._hit;
+	this->_energy = diamondTrap._energy;
+	this->_damage = diamondTrap._damage;
+	return (*this);
+}
+
+void	DiamondTrap::whoAmI(void) {
+	std::cout << "My DiamondTrap name is " << this->_name
+		<< ". My ClapTrap name is " << this->ClapTrap::_name << "." << std::endl;
+}
