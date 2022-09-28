@@ -43,10 +43,7 @@ ScavTrap::~ScavTrap(void) {
 ScavTrap &ScavTrap::operator= (const ScavTrap &scavTrap) {
 	std::cout << "Copy assignment operator called by <ScavTrap "
 			<< scavTrap._name << ">" << std::endl;
-	this->_name = scavTrap._name;
-	this->_hit = scavTrap._hit;
-	this->_energy = scavTrap._energy;
-	this->_damage = scavTrap._damage;
+	ClapTrap::operator= (scavTrap);
 	return (*this);
 }
 

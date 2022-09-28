@@ -44,11 +44,8 @@ DiamondTrap::~DiamondTrap(void) {
 DiamondTrap &DiamondTrap::operator= (const DiamondTrap &diamondTrap) {
 	std::cout << "Copy assignment operator called by <DiamondTrap "
 			<< diamondTrap._name << ">" << std::endl;
-	this->ClapTrap::_name = diamondTrap.ClapTrap::_name;
+	ClapTrap::operator= (diamondTrap);
 	this->_name = diamondTrap._name;
-	this->_hit = diamondTrap._hit;
-	this->_energy = diamondTrap._energy;
-	this->_damage = diamondTrap._damage;
 	return (*this);
 }
 

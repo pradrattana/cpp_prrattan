@@ -43,10 +43,7 @@ FragTrap::~FragTrap(void) {
 FragTrap &FragTrap::operator= (const FragTrap &fragTrap) {
 	std::cout << "Copy assignment operator called by <FragTrap "
 			<< fragTrap._name << ">" << std::endl;
-	this->_name = fragTrap._name;
-	this->_hit = fragTrap._hit;
-	this->_energy = fragTrap._energy;
-	this->_damage = fragTrap._damage;
+	ClapTrap::operator= (fragTrap);
 	return (*this);
 }
 

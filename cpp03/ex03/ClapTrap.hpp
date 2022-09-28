@@ -20,14 +20,14 @@ public:
 	ClapTrap(void);
 	ClapTrap(std::string name);
 	ClapTrap(const ClapTrap &clapTrap);
-	~ClapTrap(void);
+	virtual ~ClapTrap(void);
 	ClapTrap &operator= (const ClapTrap &clapTrap);
 
-	void	attack(const std::string &target);
-	void	takeDamage(unsigned int amount);
-	void	beRepaired(unsigned int amount);
+	virtual void	attack(const std::string &target);
+	void			takeDamage(unsigned int amount);
+	void			beRepaired(unsigned int amount);
 
-	void	printStatus(void) const;
+	void			printStatus(void) const;
 
 protected:
 	std::string		_name;
