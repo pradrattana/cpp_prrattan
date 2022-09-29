@@ -18,7 +18,7 @@ ClapTrap::ClapTrap(void):
 			<< this->_name << ">" << std::endl;
 	}
 
-ClapTrap::ClapTrap(std::string name):
+ClapTrap::ClapTrap(const std::string &name):
 	_name(name), _hit(10), _energy(10), _damage(0) {
 		std::cout << "Parameterized constructor called by <ClapTrap "
 			<< this->_name << ">" << std::endl;

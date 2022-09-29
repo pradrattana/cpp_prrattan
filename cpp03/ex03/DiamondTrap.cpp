@@ -21,7 +21,7 @@ DiamondTrap::DiamondTrap(void):
 		this->_damage = FragTrap::_DAMAGE;
 	}
 
-DiamondTrap::DiamondTrap(std::string name):
+DiamondTrap::DiamondTrap(const std::string &name):
 	ClapTrap(name + "_clap_name"), _name(name) {
 		std::cout << "Parameterized constructor called by <DiamondTrap "
 			<< this->_name << ">" << std::endl;

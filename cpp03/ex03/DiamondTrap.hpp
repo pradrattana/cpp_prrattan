@@ -21,7 +21,7 @@
 class DiamondTrap: public ScavTrap, public FragTrap {
 public:
 	DiamondTrap(void);
-	DiamondTrap(std::string name);
+	DiamondTrap(const std::string &name);
 	DiamondTrap(const DiamondTrap &diamondTrap);
 	~DiamondTrap(void);
 	DiamondTrap &operator= (const DiamondTrap &diamondTrap);
