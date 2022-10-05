@@ -17,10 +17,11 @@ Cure::Cure(void):
 		//std::cout << "Default constructor called by <Cure>" << std::endl;
 	}
 
-Cure::Cure(const Cure &cure) {
-	//std::cout << "Copy constructor called by <Cure>" << std::endl;
-	*this = cure;
-}
+Cure::Cure(const Cure &cure):
+	AMateria("cure") {
+		//std::cout << "Copy constructor called by <Cure>" << std::endl;
+		*this = cure;
+	}
 
 Cure::~Cure(void) {
 	//std::cout << "Destructor called by <Cure>" << std::endl;

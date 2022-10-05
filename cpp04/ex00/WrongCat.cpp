@@ -17,10 +17,11 @@ WrongCat::WrongCat(void):
 		std::cout << "Default constructor called by <WrongCat>" << std::endl;
 	}
 
-WrongCat::WrongCat(const WrongCat &wrong) {
-	std::cout << "Copy constructor called by <WrongCat>" << std::endl;
-	*this = wrong;
-}
+WrongCat::WrongCat(const WrongCat &wrong):
+	WrongAnimal("WrongCat") {
+		std::cout << "Copy constructor called by <WrongCat>" << std::endl;
+		*this = wrong;
+	}
 
 WrongCat::~WrongCat(void) {
 	std::cout << "Destructor called by <WrongCat>" << std::endl;
@@ -28,7 +29,8 @@ WrongCat::~WrongCat(void) {
 
 WrongCat &WrongCat::operator= (const WrongCat &wrong) {
 	std::cout << "Copy assignment operator called by <WrongCat>" << std::endl;
-	WrongAnimal::operator= (wrong);
+	//WrongAnimal::operator= (wrong);
+	(void)wrong;
 	return (*this);
 }
 

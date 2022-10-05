@@ -17,10 +17,11 @@ Cat::Cat(void):
 		std::cout << "Default constructor called by <Cat>" << std::endl;
 	}
 
-Cat::Cat(const Cat &cat) {
-	std::cout << "Copy constructor called by <Cat>" << std::endl;
-	*this = cat;
-}
+Cat::Cat(const Cat &cat):
+	Animal("Cat") {
+		std::cout << "Copy constructor called by <Cat>" << std::endl;
+		*this = cat;
+	}
 
 Cat::~Cat(void) {
 	std::cout << "Destructor called by <Cat>" << std::endl;
@@ -28,7 +29,8 @@ Cat::~Cat(void) {
 
 Cat &Cat::operator= (const Cat &cat) {
 	std::cout << "Copy assignment operator called by <Cat>" << std::endl;
-	Animal::operator= (cat);
+	//Animal::operator= (cat);
+	(void)cat;
 	return (*this);
 }
 

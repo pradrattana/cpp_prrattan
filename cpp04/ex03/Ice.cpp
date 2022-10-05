@@ -17,10 +17,11 @@ Ice::Ice(void):
 		//std::cout << "Default constructor called by <Ice>" << std::endl;
 	}
 
-Ice::Ice(const Ice &ice) {
-	//std::cout << "Copy constructor called by <Ice>" << std::endl;
-	*this = ice;
-}
+Ice::Ice(const Ice &ice):
+	AMateria("ice") {
+		//std::cout << "Copy constructor called by <Ice>" << std::endl;
+		*this = ice;
+	}
 
 Ice::~Ice(void) {
 	//std::cout << "Destructor called by <Ice>" << std::endl;
