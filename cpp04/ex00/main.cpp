@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//https://www.mygreatlearning.com/blog/polymorphism-in-cpp/
-
 #include "Animal.hpp"
 #include "Dog.hpp"
 #include "Cat.hpp"
@@ -41,7 +39,7 @@ int	main(void) {
 	std::cout << std::endl << "--------------------" << std::endl << std::endl;
 
 	const WrongAnimal	*wAni = new WrongCat();
-	const WrongCat	    *wCat = new WrongCat();
+	const WrongCat		*wCat = new WrongCat();
 
 	std::cout << std::endl;
 
@@ -52,8 +50,8 @@ int	main(void) {
 
 	std::cout << std::endl;
 
-    delete wAni;
-    delete wCat;
+	delete wAni;
+	delete wCat;
 
 	return (0);
 }

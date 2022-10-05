@@ -28,7 +28,8 @@ Ice::~Ice(void) {
 
 Ice &Ice::operator= (const Ice &ice) {
 	//std::cout << "Copy assignment operator called by <Ice>" << std::endl;
-	AMateria::operator= (ice);
+	//AMateria::operator= (ice);
+	(void)ice;
 	return (*this);
 }
 

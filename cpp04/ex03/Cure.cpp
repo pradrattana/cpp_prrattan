@@ -28,7 +28,8 @@ Cure::~Cure(void) {
 
 Cure &Cure::operator= (const Cure &cure) {
 	//std::cout << "Copy assignment operator called by <Cure>" << std::endl;
-	AMateria::operator= (cure);
+	//AMateria::operator= (cure);
+	(void)cure;
 	return (*this);
 }
 

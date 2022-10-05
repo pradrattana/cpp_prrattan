@@ -48,6 +48,4 @@ std::string	const	&AMateria::getType(void) const {
 
 void	AMateria::use(ICharacter &target) {
 	std::cout << "* uses a materia at " << target.getName() << " *" << std::endl;
-	//(void)target;
-	//std::cout << "Using a " << this->getType() << " Materia on " << target.getName() << std::endl;
 }

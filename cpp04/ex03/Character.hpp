@@ -32,19 +32,11 @@ public:
 	void				use(int idx, ICharacter &target);
 
 private:
-	/*typedef struct unequipList {
-		AMateria			*data;
-		struct unequipList	*next;
-	}	unequipList_t;
-
-	void	unequipListAdd(unequipList_t **head, unequipList_t *node);
-	void	unequipListClear(unequipList_t **head);*/
-
 	static const int	_MAX = 4;
+	static const int	_MAX_UE = 100;
 	AMateria			*slot[_MAX];
 	std::string			name;
-	AMateria			*unequipSlot[100];
-	//unequipList_t		*uneqipHead;
+	AMateria			*unequipSlot[_MAX_UE];
 };
 
 #endif

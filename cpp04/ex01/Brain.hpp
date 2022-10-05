@@ -26,7 +26,8 @@ public:
 	void		setIdeas(const std::string &idea);
 
 private:
-	std::string	*ideas;
+	static const int	_MAX = 100;
+	std::string			*ideas;
 };
 
 #endif

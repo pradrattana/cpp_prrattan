@@ -32,37 +32,37 @@ int main(void) {
 
 	std::cout << std::endl << "--------------------" << std::endl << std::endl;
 
-    Animal  *animal[MAX_ANIMAL];
+	Animal  *animal[MAX_ANIMAL];
 
-    for (int i = 0; i < MAX_ANIMAL; i++) {
-        if (i % 2) {
-            animal[i] = new Dog();
-        } else {
-            animal[i] = new Cat();
-        }
-    }
+	for (int i = 0; i < MAX_ANIMAL; i++) {
+		if (i % 2) {
+			animal[i] = new Dog();
+		} else {
+			animal[i] = new Cat();
+		}
+	}
 
-    std::cout << std::endl;
+	std::cout << std::endl;
 	
 	std::cout << animal[0]->getType() << ": ";
 	animal[0]->makeSound();
 	std::cout << animal[1]->getType() << ": ";
 	animal[1]->makeSound();
 
-    std::cout << std::endl;
+	std::cout << std::endl;
 
-    for (int i = 0; i < MAX_ANIMAL; i++) {
-        delete animal[i];
-    }
+	for (int i = 0; i < MAX_ANIMAL; i++) {
+		delete animal[i];
+	}
 
 	std::cout << std::endl << "--------------------" << std::endl << std::endl;
 
 	Dog myDog;
-	myDog.setIdeas("i would like to eat meat tonight");
-	Dog myFriendDog = myDog;
-	myDog.setIdeas("today is a party day!");
+	myDog.setIdeas("I would like to eat meat tonight.");
+	Dog myFriendDog = myDog; // copy constructor
+	myDog.setIdeas("Today is party day!");
 
-    std::cout << std::endl;
+	std::cout << std::endl;
 	
 	std::cout << "My dog ideas:" << std::endl;
 	myDog.printIdeas();
@@ -70,7 +70,7 @@ int main(void) {
 	std::cout << std::endl << "My friend dog ideas:" << std::endl;
 	myFriendDog.printIdeas();
 
-    std::cout << std::endl;
+	std::cout << std::endl;
 
 	return (0);
 }
