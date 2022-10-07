@@ -19,6 +19,7 @@ Brain::Brain(void) {
 
 Brain::Brain(const Brain &brain) {
 	std::cout << "Copy constructor called by <Brain>" << std::endl;
+	this->ideas = new std::string[Brain::_MAX];
 	*this = brain;
 }
 

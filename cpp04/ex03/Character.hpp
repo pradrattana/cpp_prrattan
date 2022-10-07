@@ -34,8 +34,8 @@ public:
 private:
 	static const int	_MAX = 4;
 	static const int	_MAX_UE = 100;
-	AMateria			*slot[_MAX];
 	std::string			name;
+	AMateria			*slot[_MAX];
 	AMateria			*unequipSlot[_MAX_UE];
 };
 
