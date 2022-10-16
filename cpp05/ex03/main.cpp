@@ -19,7 +19,7 @@ int	main(void) {
 	
 	std::cout << std::endl << ">> Intern tries to make invalid form" << std::endl;
 	Form	*temp = newbie.makeForm("abcde", "Durian");
-	temp = newbie.makeForm("SHRUBERY", "Durian");
+	temp = newbie.makeForm("SHRUERY", "Durian");
 
 	std::cout << std::endl;
 

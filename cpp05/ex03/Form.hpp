@@ -21,21 +21,20 @@ public:
 	int const			&getToSignGrade(void) const;
 	int const			&getToExecGrade(void) const;
 
-	void		checkGrade(int grade);
-	void		beSigned(const Bureaucrat &bureaucrat);
-
-	void			execute(const Bureaucrat &executor) const;
-	virtual void	derivedExecute(void) const = 0;
+	void	checkGrade(int grade);
+	void	beSigned(const Bureaucrat &bureaucrat);
+	void	execute(const Bureaucrat &executor) const;
 
 private:
-	const std::string	_name;
 	static const int	_HIGHEST = 1;
 	static const int	_LOWEST = 150;
+	const std::string	_name;
 	bool				_isSigned;
 	const int			_toSign;
 	const int			_toExec;
 
-protected:
+	virtual void	derivedExecute(void) const = 0;
+
 	class GradeTooHighException: public std::exception {
 	public:
 		const char	*what() const throw();

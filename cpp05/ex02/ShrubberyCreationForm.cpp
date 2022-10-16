@@ -49,5 +49,5 @@ void	ShrubberyCreationForm::derivedExecute(void) const {
 		<< "         |  |        " << std::endl
 		<< "  ______/____\\____   " << std::endl;
 	out.close();
-	//std::cout<< "write an ascii tree in " << this->_target  << std::endl;
+	std::cout << "Write an ascii tree in " << name << "." << std::endl;
 }

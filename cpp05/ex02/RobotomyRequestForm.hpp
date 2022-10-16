@@ -18,12 +18,12 @@ public:
 	~RobotomyRequestForm(void);
 	RobotomyRequestForm &operator= (const RobotomyRequestForm &rr);
 
-	void	derivedExecute(void) const;
-
 private:
 	std::string			_target;
 	static const int	_SIGN = 72;
 	static const int	_EXEC = 45;
+
+	void	derivedExecute(void) const;
 };
 
 #endif

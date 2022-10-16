@@ -17,12 +17,12 @@ public:
 	~PresidentialPardonForm(void);
 	PresidentialPardonForm &operator= (const PresidentialPardonForm &pp);
 
-	void	derivedExecute(void) const;
-
 private:
 	std::string			_target;
 	static const int	_SIGN = 25;
 	static const int	_EXEC = 5;
+
+	void	derivedExecute(void) const;
 };
 
 #endif

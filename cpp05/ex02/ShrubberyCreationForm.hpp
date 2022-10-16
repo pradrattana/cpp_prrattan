@@ -20,12 +20,12 @@ public:
 	~ShrubberyCreationForm(void);
 	ShrubberyCreationForm &operator= (const ShrubberyCreationForm &shc);
 
-	void	derivedExecute(void) const;
-
 private:
 	std::string			_target;
 	static const int	_SIGN = 145;
 	static const int	_EXEC = 137;
+
+	void	derivedExecute(void) const;
 };
 
 #endif

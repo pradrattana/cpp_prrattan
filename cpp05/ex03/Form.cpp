@@ -76,20 +76,20 @@ void	Form::beSigned(const Bureaucrat &bureaucrat) {
 }
 
 void	Form::execute(const Bureaucrat &executor) const {
-	if (!this->getSignedStat()) {
-		throw "the form isn't signed yet.";
-	} else if (executor.getGrade() > this->getToExecGrade()) {
+	if (executor.getGrade() > this->getToExecGrade()) {
 		throw Form::GradeTooLowException();
+	} else if (!this->getSignedStat()) {
+		throw "the form isn't signed yet.";
 	}
 	this->derivedExecute();
 }
 
 const char	*Form::GradeTooHighException::what() const throw() {
-	return ("Form: Grade is too high.");
+	return ("Form::Grade is too high.");
 }
 
 const char	*Form::GradeTooLowException::what() const throw() {
-	return ("Form: Grade is too low.");
+	return ("Form::Grade is too low.");
 }
 
 std::ostream &operator<< (std::ostream &os, const Form &form) {
