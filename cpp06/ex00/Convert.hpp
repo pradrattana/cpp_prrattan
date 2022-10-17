@@ -16,23 +16,21 @@
 # include <iostream>
 # include <iomanip>
 # include <sstream>
-# include <cstdlib>
-# include <cstring>
-# include <cctype>
-# include <locale>
 # include <cmath>
 # include <limits>
 
 class Convert {
 public:
 	Convert(void);
-	Convert(const char *convert);
+	Convert(const std::string &convert);
 	Convert(const Convert &convert);
 	~Convert(void);
 	Convert &operator= (const Convert &convert);
 
-	void	printOutput(void);
-	void	printOutput(const std::string &type);
+	void	printCharOutput(void) const;
+	void	printIntOutput(void) const;
+	void	printFloatOutput(void) const;
+	void	printDoubleOutput(void) const;
 
 private:
 	char		*_src;
@@ -41,11 +39,8 @@ private:
 	float		_float;
 	int			_int;
 	char		_char;
-
-	void	printCharOutput(void);
-	void	printIntOutput(void);
-	void	printFloatOutput(void);
-	void	printDoubleOutput(void);
 };
+
+std::ostream &operator<< (std::ostream &os, const Convert &convert);
 
 #endif

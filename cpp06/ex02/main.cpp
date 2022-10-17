@@ -37,10 +37,9 @@ int	main(void) {
 	identify(*baseB);
 	std::cout << std::endl;
 
-	Base	&baseC = c;
 	std::cout << "Class: C" << std::endl;
-	identify(&baseC);
-	identify(baseC);
+	identify(&c);
+	identify(c);
 	std::cout << std::endl;
 
 	Base	*baseGen = generate();

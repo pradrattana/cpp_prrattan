@@ -10,23 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
 #include "Convert.hpp"
-#include <limits>
-#include <cstring> 
-#include <cstddef>
+#include <iostream>
 
 int	main(int argc, char **argv) {
 	if (argc == 2) {
 		Convert convert(argv[1]);
-
-		convert.printOutput("char");
-		convert.printOutput("int");
-		convert.printOutput("float");
-		convert.printOutput("double");
+		std::cout << convert;
 	} else {
 		double	varmax[] = {
-			std::numeric_limits<char>::max() - 1,
+			std::numeric_limits<char>::max(),
 			std::numeric_limits<int>::max(),
 			std::numeric_limits<float>::max(),
 			std::numeric_limits<double>::max()
@@ -37,21 +30,13 @@ int	main(int argc, char **argv) {
 			-std::numeric_limits<float>::max(),
 			-std::numeric_limits<double>::max()
 		};
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 8; i++) {
+			//std::cout << (i < 4 ? varmax[i] : varmin[i - 4]) << std::endl;
 			std::ostringstream	stream;
-			stream << std::fixed << varmax[i];
-			std::string	num(stream.str());
-			Convert	convert(num.c_str());
-			convert.printOutput();
-			std::cout << std::endl;
-		}
-		for (int i = 0; i < 4; i++) {
-			std::ostringstream	stream;
-			stream << std::fixed << varmin[i];
-			std::string	num(stream.str());
-			Convert	convert(num.c_str());
-			convert.printOutput();
-			if (i < 3)
+			stream << std::fixed << (i < 4 ? varmax[i] : varmin[i - 4]);
+			Convert	convert(stream.str());
+			std::cout << convert;
+			if (i != 7)
 				std::cout << std::endl;
 		}
 	}
