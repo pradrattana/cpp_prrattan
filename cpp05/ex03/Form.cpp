@@ -70,7 +70,7 @@ void	Form::beSigned(const Bureaucrat &bureaucrat) {
 	if (bureaucrat.getGrade() > this->getToSignGrade()) {
 		throw Form::GradeTooLowException();
 	} else if (this->getSignedStat()) {
-		throw "the form is already signed.";
+		throw "the form had already been signed.";
 	}
 	this->_isSigned = true;
 }
@@ -79,7 +79,7 @@ void	Form::execute(const Bureaucrat &executor) const {
 	if (executor.getGrade() > this->getToExecGrade()) {
 		throw Form::GradeTooLowException();
 	} else if (!this->getSignedStat()) {
-		throw "the form isn't signed yet.";
+		throw "the form had not been signed.";
 	}
 	this->derivedExecute();
 }

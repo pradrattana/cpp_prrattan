@@ -20,10 +20,11 @@ int	main(void) {
 	std::cout << std::endl;
 
 	Bureaucrat	*bureaucrat[] = { &anne, &bob, &cara };
-	
-	for (int i = 1; i < 3; i++) {
-		bureaucrat[0]->signForm(*form[i]);
-		bureaucrat[0]->executeForm(*form[i]);
+
+	for (int i = 0; i < 3; i++) {
+		if (i > 0)
+			anne.signForm(*form[i]);
+		anne.executeForm(*form[i]);
 		std::cout << *form[i] << std::endl;
 	}
 
@@ -34,8 +35,6 @@ int	main(void) {
 		//std::cout << *bureaucrat[i] << std::endl;
 		//std::cout << *form[i] << std::endl;
 	}
-
-	//std::cout << std::endl;
 
 	for (int i = 0; i < 3; i++) {
 		delete form[i];
