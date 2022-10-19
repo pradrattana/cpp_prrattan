@@ -33,7 +33,7 @@ public:
 	void	printDoubleOutput(void) const;
 
 private:
-	char		*_src;
+	const char	*_src;
 	bool		_isDouble;
 	double		_double;
 	float		_float;

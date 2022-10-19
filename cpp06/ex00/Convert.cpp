@@ -18,7 +18,7 @@ Convert::Convert(void) {
 
 Convert::Convert(const std::string &convert) {
 	//std::cout << "Parameterized constructor called by <Convert>" << std::endl;
-	this->_src = const_cast<char *>(convert.c_str());
+	this->_src = convert.c_str();
 
 	std::istringstream	stream(this->_src);
 	double	num;
