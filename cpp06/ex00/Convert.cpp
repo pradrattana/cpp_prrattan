@@ -18,20 +18,21 @@ Convert::Convert(void) {
 
 Convert::Convert(const std::string &convert) {
 	//std::cout << "Parameterized constructor called by <Convert>" << std::endl;
-	this->_src = convert.c_str();
+	const char	*src = convert.c_str();
 
-	std::istringstream	stream(this->_src);
+	std::istringstream	stream(src);
 	double	num;
 	stream >> num >> std::ws;
-	this->_isDouble = (stream.eof() && !stream.fail());
-	if (!this->_isDouble && stream.tellg() >= 0) {
-		std::string	rem(stream.str().substr(stream.tellg()));
-		this->_isDouble = (rem.compare("f") == 0);
-	}
+	this->_isDouble = stream.eof();
+	//this->_isDouble = (stream.eof() && !stream.fail());
+	//if (!this->_isDouble && stream.tellg() >= 0) {
+	//	std::string	rem(stream.str().substr(stream.tellg()));
+	//	this->_isDouble = (rem.compare("f") == 0);
+	//}
 
-	this->_double = atof(this->_src);
+	this->_double = atof(src);
 	this->_float = static_cast<float>(this->_double);
-	this->_int = atoi(this->_src);
+	this->_int = atoi(src);
 	this->_char = static_cast<char>(this->_int);
 }
 
@@ -46,7 +47,6 @@ Convert::~Convert(void) {
 
 Convert &Convert::operator= (const Convert &convert) {
 	//std::cout << "Copy assignment operator called by <Convert>" << std::endl;
-	this->_src = convert._src;
 	this->_isDouble = convert._isDouble;
 	this->_double = convert._double;
 	this->_float = convert._float;
@@ -58,7 +58,7 @@ Convert &Convert::operator= (const Convert &convert) {
 void	Convert::printCharOutput(void) const {
 	if (this->_isDouble && this->_double >= 0
 		&& this->_double <= std::numeric_limits<char>::max()) {
-		if (std::isprint(this->_char)) {
+		if (isprint(this->_char)) {
 			std::cout << "'" << this->_char << "'";
 		} else {
 			std::cout << "Non displayable";
