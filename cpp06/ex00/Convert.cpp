@@ -20,16 +20,6 @@ Convert::Convert(const std::string &convert) {
 	//std::cout << "Parameterized constructor called by <Convert>" << std::endl;
 	const char	*src = convert.c_str();
 
-	std::istringstream	stream(src);
-	double	num;
-	stream >> num >> std::ws;
-	this->_isDouble = stream.eof();
-	//this->_isDouble = (stream.eof() && !stream.fail());
-	//if (!this->_isDouble && stream.tellg() >= 0) {
-	//	std::string	rem(stream.str().substr(stream.tellg()));
-	//	this->_isDouble = (rem.compare("f") == 0);
-	//}
-
 	this->_double = atof(src);
 	this->_float = static_cast<float>(this->_double);
 	this->_int = atoi(src);
@@ -47,7 +37,6 @@ Convert::~Convert(void) {
 
 Convert &Convert::operator= (const Convert &convert) {
 	//std::cout << "Copy assignment operator called by <Convert>" << std::endl;
-	this->_isDouble = convert._isDouble;
 	this->_double = convert._double;
 	this->_float = convert._float;
 	this->_int = convert._int;
@@ -56,7 +45,7 @@ Convert &Convert::operator= (const Convert &convert) {
 }
 
 void	Convert::printCharOutput(void) const {
-	if (this->_isDouble && this->_double >= 0
+	if (this->_double >= 0
 		&& this->_double <= std::numeric_limits<char>::max()) {
 		if (isprint(this->_char)) {
 			std::cout << "'" << this->_char << "'";
@@ -69,7 +58,7 @@ void	Convert::printCharOutput(void) const {
 }
 
 void	Convert::printIntOutput(void) const {
-	if (this->_isDouble && this->_double >= std::numeric_limits<int>::min()
+	if (this->_double >= std::numeric_limits<int>::min()
 		&& this->_double <= std::numeric_limits<int>::max()) {
 		std::cout << this->_int;
 	} else {
@@ -78,7 +67,8 @@ void	Convert::printIntOutput(void) const {
 }
 
 void	Convert::printFloatOutput(void) const {
-	if (this->_isDouble) {
+	if (this->_double >= -std::numeric_limits<float>::max()
+		&& this->_double <= std::numeric_limits<float>::max()) {
 		std::cout << std::fixed << std::setprecision(1) << this->_float;
 		std::cout << "f";
 	} else if (isnan(this->_float) || isinf(this->_float)) {
@@ -89,7 +79,8 @@ void	Convert::printFloatOutput(void) const {
 }
 
 void	Convert::printDoubleOutput(void) const {
-	if (this->_isDouble) {
+	if (this->_double >= -std::numeric_limits<double>::max()
+		&& this->_double <= std::numeric_limits<double>::max()) {
 		std::cout << std::fixed << std::setprecision(1) << this->_double;
 	} else if (isnan(this->_double) || isinf(this->_double)) {
 		std::cout << this->_double;
