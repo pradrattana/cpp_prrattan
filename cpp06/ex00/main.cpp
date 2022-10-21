@@ -12,6 +12,8 @@
 
 #include "Convert.hpp"
 #include <iostream>
+#include <sstream>
+#include <limits>
 
 int	main(int argc, char **argv) {
 	if (argc == 2) {
@@ -31,7 +33,7 @@ int	main(int argc, char **argv) {
 			-std::numeric_limits<double>::max()
 		};
 		for (int i = 0; i < 8; i++) {
-			//std::cout << std::fixed << std::setprecision(1) << (i < 4 ? varmax[i] : varmin[i - 4]) << std::endl;
+			//std::cout << std::fixed << (i < 4 ? varmax[i] : varmin[i - 4]) << std::endl;
 			std::ostringstream	stream;
 			stream << std::fixed << (i < 4 ? varmax[i] : varmin[i - 4]);
 			Convert	convert(stream.str());

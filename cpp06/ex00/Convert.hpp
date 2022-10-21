@@ -15,7 +15,6 @@
 
 # include <iostream>
 # include <iomanip>
-# include <sstream>
 # include <cmath>
 # include <limits>
 
@@ -27,12 +26,14 @@ public:
 	~Convert(void);
 	Convert &operator= (const Convert &convert);
 
+	const std::string	&getInputType(void) const;
 	void	printCharOutput(void) const;
 	void	printIntOutput(void) const;
 	void	printFloatOutput(void) const;
 	void	printDoubleOutput(void) const;
 
 private:
+	std::string	_type;
 	double		_double;
 	float		_float;
 	int			_int;
