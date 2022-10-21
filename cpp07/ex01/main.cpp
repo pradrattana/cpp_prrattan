@@ -25,7 +25,7 @@ void	addCharA(T &x) {
 
 int	main(void) {
 	const int	myConstInt[] = { 100, 90, 80, 70, 60, 50 };
-	int			myInt[] = { 0, 1, 1, 2, 3, 5, 8, 13, 21, 34 };
+	int			myInt[20] = { 0, 1, 1, 2, 3, 5, 8, 13, 21, 34 };
 	std::string	myString[] = {
 		"apple",
 		"banana",

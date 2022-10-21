@@ -14,17 +14,18 @@
 # define ARRAY_HPP
 
 # include <exception>
+# include <cstdlib>
 
-template <class T>
+template <typename T>
 class Array {
 public:
-	Array(void): _num(NULL), _size(0) {}
+	Array(void): _array(NULL), _size(0) {}
 
-	Array(unsigned int n): _num(NULL), _size(n) {
+	Array(unsigned int n): _array(NULL), _size(n) {
 		if (this->_size > 0) {
-			this->_num = new T[this->_size];
+			this->_array = new T[this->_size];
 			for (unsigned int i = 0; i < this->_size; i++) {
-				this->_num[i] = 0;
+				this->_array[i] = '\0';
 			}
 		}
 	}
@@ -34,27 +35,27 @@ public:
 	}
 
 	~Array(void) {
-		delete[] this->_num;
+		delete[] this->_array;
 	}
 
 	Array &operator= (const Array &array) {
-		this->_num = NULL;
-		this->_size = array._size;
+		this->_array = NULL;
+		this->_size = array.size();
 		if (this->_size > 0) {
-			this->_num = new T[this->_size];
+			this->_array = new T[this->_size];
 			for (unsigned int i = 0; i < this->_size; i++) {
-				this->_num[i] = array._num[i];
+				this->_array[i] = array._array[i];
 			}
 		}
 		return (*this);
 	}
 
 	T &operator[] (int index) const {
-		if (static_cast<unsigned int>(index) >= this->_size) {
-			throw std::exception();
-			//throw std::out_of_range("Index is out of bounds");
-		}
-		return (this->_num[index]);
+		if (index >= 0)
+			if (static_cast<unsigned int>(index) < this->_size)
+				return (this->_array[index]);
+		throw std::exception();
+		//throw std::out_of_range("Index is out of bounds");
 	}
 
 	unsigned int	size(void) const {
@@ -62,7 +63,7 @@ public:
 	}
 
 private:
-	T				*_num;
+	T				*_array;
 	unsigned int	_size;
 };
 

@@ -15,7 +15,7 @@ NAME = array
 OBJ_DIR = objs/
 
 CC = c++
-CFLAGS = -Wall -Werror -Wextra -std=c++98 -g
+CFLAGS = -Wall -Werror -Wextra -std=c++98
 RM = rm
 
 SRC_FILE = main
@@ -32,7 +32,7 @@ $(NAME): $(OBJS)
 
 $(OBJ_DIR)%.o: %.cpp $(HDRS)
 	@mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -I. -c $< -o $@
 
 clean:
 	$(RM) -rf $(OBJ_DIR)
