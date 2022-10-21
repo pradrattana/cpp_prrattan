@@ -30,7 +30,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $@
 
-$(OBJ_DIR)%.o: %.cpp
+$(OBJ_DIR)%.o: %.cpp $(HDRS)
 	@mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 

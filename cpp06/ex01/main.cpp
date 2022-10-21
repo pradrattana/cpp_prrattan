@@ -10,15 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "Data.hpp"
 #include <stdint.h>
 #include <iostream>
 
-struct Data {
-	std::string	str;
-	int			num;
-};
-
-uintptr_t	serialize(struct Data *ptr) {
+uintptr_t	serialize(Data *ptr) {
 	return (reinterpret_cast<uintptr_t>(ptr));
 }
 
@@ -27,7 +23,7 @@ Data	*deserialize(uintptr_t raw) {
 }
 
 int	main(void) {
-	struct Data	before;
+	Data	before;
 	before.str = "Hello World";
 	before.num = 99;
 
@@ -37,7 +33,7 @@ int	main(void) {
 		<< "> num    : " << before.num << std::endl;
 
 	uintptr_t	ret = serialize(&before);
-	struct Data	*after = deserialize(ret);
+	Data		*after = deserialize(ret);
 
 	std::cout << std::endl;
 	std::cout << "Data after deserialize" << std::endl
