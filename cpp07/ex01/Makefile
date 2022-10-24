@@ -22,7 +22,7 @@ SRC_FILE = main
 SRCS = $(addsuffix .cpp, $(SRC_FILE))
 OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILE)))
 
-HDR_FILE = iter Awesome
+HDR_FILE = iter
 HDRS = $(addsuffix .hpp, $(HDR_FILE))
 
 all: $(NAME)

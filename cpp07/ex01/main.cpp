@@ -35,21 +35,21 @@ int	main(void) {
 	};
 	
 	std::cout << "myConstInt - print" << std::endl;
-	iter(myConstInt, 6, print);
+	iter(myConstInt, 6, &print);
 	std::cout << std::endl;
 
 	std::cout << "myInt - addCharA" << std::endl;
-	iter(myInt, 10, addCharA);
+	iter(myInt, 10, &addCharA);
 	std::cout << "myInt - print" << std::endl;
-	iter(myInt, 10, print);
+	iter(myInt, 10, &print);
 	std::cout << std::endl;
 
 	std::cout << "myString - print" << std::endl;
-	iter(myString, 5, print);
-	std::cout << "myString - addCharA" << std::endl;
-	iter(myString, 5, addCharA);
+	iter(myString, 5, &print);
+	std::cout << "myString - addCharA (half)" << std::endl;
+	iter(myString, 5 / 2, &addCharA);
 	std::cout << "myString - print" << std::endl;
-	iter(myString, 5, print);
+	iter(myString, 5, &print);
 
 	return (0);
 }
