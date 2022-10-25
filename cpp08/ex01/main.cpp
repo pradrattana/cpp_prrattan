@@ -34,12 +34,13 @@ int main(void) {
 		(i % 2) ? src.addNumber((i - 2) * 2) : src.addNumber((i + 3) * 3);
 	}
 	Span	cpy(src);
-	for (int i = 0; i < 7; i++) {
-		try {
-			cpy.addNumber((i + 9) * i);
-		} catch (const std::exception &e) {
-			std::cout << e.what() << std::endl;
-		}
+	int		temp[7];
+	for (int i = 0; i < 7; i++)
+		temp[i] = (i + 9) * i;
+	try {
+		cpy.addNumber(temp, 7);
+	} catch (const std::exception &e) {
+		std::cout << e.what() << std::endl;
 	}
 	std::cout << std::endl << "src: " << src << std::endl
 		<< ">> shortestSpan: " << src.shortestSpan() << std::endl

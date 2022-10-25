@@ -40,7 +40,7 @@ Span &Span::operator= (const Span &span) {
 
 void	Span::addNumber(int n) {
 	if (this->_number.size() + 1 > this->_size) {
-		throw std::out_of_range("The Span is full.");
+		throw std::out_of_range("The slot is full.");
 	}
 	this->_number.push_back(n);
 }
@@ -51,9 +51,23 @@ void	Span::addNumber(int start, int end) {
 	}
 }
 
+void	Span::addNumber(int *arr, int size) {
+	int	empty = this->_size - this->_number.size();
+
+	if (size > 0) {
+		if (size <= empty) {
+			this->_number.insert(this->_number.end(), arr, arr + size);
+		} else {
+			if (empty > 0)
+				this->_number.insert(this->_number.end(), arr, arr + empty);
+			throw std::out_of_range("The slot is full.");
+		}
+	}
+}
+
 int	Span::shortestSpan(void) const {
 	if (this->_number.size() <= 1)
-		throw std::out_of_range("The Span cannot be found.");
+		throw std::out_of_range("The span cannot be found.");
 
 	std::vector<int>	vect1(this->_number);
 	std::sort(vect1.begin(), vect1.end());
@@ -75,14 +89,14 @@ int	Span::shortestSpan(void) const {
 
 int	Span::longestSpan(void) const {
 	if (this->_number.size() <= 1)
-		throw std::out_of_range("The Span cannot be found.");
+		throw std::out_of_range("The span cannot be found.");
 
 	std::vector<int>	vect(this->_number);
 	std::sort(vect.begin(), vect.end());
 	return (vect.back() - vect.front());
 }
 
-std::vector<int>	Span::getNumber(void) const {
+const std::vector<int>	&Span::getNumber(void) const {
     return (this->_number);
 }
 
@@ -90,7 +104,7 @@ std::ostream &operator<< (std::ostream &os, const Span &span) {
 	std::vector<int>	vect(span.getNumber());
 	//os << "Span: ";
 	for (std::vector<int>::const_iterator itc = vect.begin(); itc != vect.end(); itc++) {
-		std::cout << *itc << (itc + 1 != vect.end() ?  ", " : "");
+		os << *itc << (itc + 1 != vect.end() ?  ", " : "");
 	}
 	return (os);
 }

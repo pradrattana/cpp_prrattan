@@ -29,10 +29,11 @@ public:
 
 	void	addNumber(int n);
 	void	addNumber(int start, int end);
+	void	addNumber(int *arr, int size);
 	int		shortestSpan(void) const;
 	int		longestSpan(void) const;
 
-	std::vector<int>	getNumber(void) const;
+	const std::vector<int>	&getNumber(void) const;
 
 private:
 	unsigned int		_size;
