@@ -15,14 +15,10 @@
 
 int	main(int argc, char **argv) {
 	if (argc == 2) {
-		BitcoinExchange	convert(argv[1]);
-		(void)convert;
-		// convert.splitLine("2011-01-03 | 3");
-		// convert.intepretLine("2011-01-03 | 3");
+		BitcoinExchange	btc(argv[1]);
+		(void)btc;
 	} else {
 		std::cout << "Error: could not open file." << std::endl;
 	}
 	return (0);
 }
-
-//https://thispointer.com/c-convert-double-to-string-and-manage-precision-scientific-notation/

@@ -17,28 +17,30 @@
 # include <sstream>
 # include <fstream>
 # include <string>
+# include <cstdlib>
 # include <ctime>
-# include <cmath>
 # include <map>
 
 class BitcoinExchange {
 public:
 	BitcoinExchange(void);
-	BitcoinExchange(const std::string &inp);
-	BitcoinExchange(const BitcoinExchange &inp);
+	BitcoinExchange(const std::string &src);
+	BitcoinExchange(const BitcoinExchange &src);
 	~BitcoinExchange(void);
-	BitcoinExchange &operator= (const BitcoinExchange &inp);
+	BitcoinExchange &operator= (const BitcoinExchange &src);
 
-	int		splitLine(const std::string &line);
+	int		init(const std::string &inp);
+	int		setTable(const std::string &name);
 	int		intepretLine(const std::string &line);
-	void	setTable(const std::string &name);
-	double	calculate();
-	void	clear(void);
+	double	calculate(void) const;
 
 private:
-	std::map<std::string, double>	_table;
+	std::map<std::string, std::string>	_table;
 	std::pair<std::string, std::string>	_curLine;
-	// std::pair<std::string, double>	_curLine;
 };
+
+int	myOpenFile(std::fstream &ifs, const std::string &name, std::ios::openmode flag);
+int	splitToPair(const std::string &line, const std::string &delim, std::pair<std::string, std::string> &pair);
+int	checkDate(const std::string &date);
 
 #endif
