@@ -18,6 +18,7 @@ int	main(int argc, char **argv) {
 	if (argc > 1) {
 		PmergeMe<std::vector<int> >	byVector;
 		PmergeMe<std::deque<int> >	byDeque;
+		double	timeVect, timeDeque;
 
 		if (!byVector.init(argc, argv)) {
 			std::cout << "Error" << std::endl;
@@ -25,9 +26,14 @@ int	main(int argc, char **argv) {
 		}
 		byDeque.init(argc, argv);
 
-		std::cout << "Before: " << byVector << std::endl;
-		float	timeVect = byVector.getFuncProcessorTime(&PmergeMe<std::vector<int> >::mergeDevide, byVector);
-		std::cout << "After:  " << byVector << std::endl;
+		std::cout << "Before:  " << byVector << std::endl;
+		timeVect = byVector.getFuncProcessingTime(
+			&PmergeMe<std::vector<int> >::mergeDevide, byVector
+		);
+		timeDeque = byDeque.getFuncProcessingTime(
+			&PmergeMe<std::deque<int> >::mergeDevide, byDeque
+		);
+		std::cout << "After:   " << byVector << std::endl;
 
 		std::cout << "Time to process a range of "
 			<< byVector.getNumber().size()
@@ -38,10 +44,8 @@ int	main(int argc, char **argv) {
 		std::cout << "Time to process a range of "
 			<< byDeque.getNumber().size()
 			<< " elements with std::deque  : "
-			<< byDeque.getFuncProcessorTime(&PmergeMe<std::deque<int> >::mergeDevide, byDeque)
+			<< timeDeque
 			<< " us" << std::endl;
 	}
 	return (0);
 }
-
-//https://thispointer.com/c-convert-double-to-string-and-manage-precision-scientific-notation/

@@ -16,10 +16,8 @@
 # include <iostream>
 # include <sstream>
 # include <string>
-# include <cstdio>
 # include <cmath>
 # include <stack>
-# include <limits>
 
 class RPN {
 public:
@@ -29,12 +27,13 @@ public:
 	~RPN(void);
 	RPN &operator= (const RPN &inp);
 
+	int		init(const std::string &inp);
 	int		intepret(const std::string &data);
-	void	calculate(char sign);
-	void	clear(void);
+	double	calculate(char sign);
+	const double	&getResult(void) const;
 
 private:
-	std::stack<int>	_number;
+	std::stack<double>	_number;
 };
 
 #endif

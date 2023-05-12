@@ -13,61 +13,32 @@
 #include "RPN.hpp"
 
 RPN::RPN(void) {
-	//std::cout << "Default constructor called by <RPN>" << std::endl;
-}
-
-int	RPN::intepret(const std::string &data) {
-	std::istringstream	iss(data);
-	int 				res;
-
-	if (std::string("+-*/").find(data) != std::string::npos)
-		return *data.c_str();
-
-	iss >> res;
-	if (res < 10 && iss.eof())
-		return res;
-	return 10;
-}
-
-void	RPN::calculate(char sign) {
-	if (_number.size() < 2) {
-		clear();
-		std::cout << "Error" << std::endl;
-		exit(1);
-	}
-
-	int	b = _number.top();
-	_number.pop();
-	int	a = _number.top();
-	_number.pop();
-
-	switch (sign) {
-		case '+':
-			_number.push(a + b);
-			break ;
-
-		case '-':
-			_number.push(a - b);
-			break ;
-
-		case '*':
-			_number.push(a * b);
-			break ;
-
-		case '/':
-			_number.push(a / b);
-			break ;
-	}
-}
-
-void	RPN::clear(void) {
-	while (_number.size() > 0)
-		_number.pop();
+	// std::cout << "Default constructor called by <RPN>" << std::endl;
 }
 
 RPN::RPN(const std::string &inp) {
-	//std::cout << "Parameterized constructor called by <RPN>" << std::endl;
+	if (!this->init(inp))
+		std::cout << "Error" << std::endl;
+	else
+		std::cout << this->getResult() << std::endl;
+}
 
+RPN::RPN(const RPN &inp) {
+	// std::cout << "Copy constructor called by <RPN>" << std::endl;
+	*this = inp;
+}
+
+RPN::~RPN(void) {
+	// std::cout << "Destructor called by <RPN>" << std::endl;
+}
+
+RPN &RPN::operator= (const RPN &src) {
+	// std::cout << "Copy assignment operator called by <RPN>" << std::endl;
+	this->_number = src._number;
+	return (*this);
+}
+
+int	RPN::init(const std::string &inp) {
 	std::istringstream	iss(inp);
 	std::string			data;
 
@@ -78,39 +49,65 @@ RPN::RPN(const std::string &inp) {
 				case '-':
 				case '*':
 				case '/':
-					calculate(res);
+					if (!calculate(res))
+						return 0;
 					break ;
 
 				case 10:
-					clear();
-					std::cout << "Error" << std::endl;
-					exit(1);
+					return 0;
 
 				default:
-					_number.push(res);
+					this->_number.push(res);
 					break ;
 			}
-			// printf( "`%s'\n", data.c_str() );
 		}
 	}
+	return this->_number.size() == 1;
 }
 
-RPN::RPN(const RPN &inp) {
-	//std::cout << "Copy constructor called by <RPN>" << std::endl;
-	*this = inp;
+int	RPN::intepret(const std::string &data) {
+	std::istringstream	iss(data);
+	int 				res;
+
+	if (std::string("+-*/").find(data) != std::string::npos
+			&& data.length() == 1)
+		return *data.c_str();
+
+	iss >> res;
+	if (res < 10 && iss.eof())
+		return res;
+	return 10;
 }
 
-RPN::~RPN(void) {
-	//std::cout << "Destructor called by <RPN>" << std::endl;
-	if (_number.size() == 1)
-		std::cout << _number.top() << std::endl;
-	else
-		std::cout << "Error" << std::endl;
-	clear();
+double	RPN::calculate(char sign) {
+	if (this->_number.size() < 2)
+		return 0;
+
+	double	b = this->_number.top();
+	this->_number.pop();
+	double	a = this->_number.top();
+	this->_number.pop();
+
+	switch (sign) {
+		case '+':
+			this->_number.push(a + b);
+			break ;
+
+		case '-':
+			this->_number.push(a - b);
+			break ;
+
+		case '*':
+			this->_number.push(a * b);
+			break ;
+
+		case '/':
+			this->_number.push(a / b);
+			break ;
+	}
+	return 1;
 }
 
-RPN &RPN::operator= (const RPN &inp) {
-	//std::cout << "Copy assignment operator called by <RPN>" << std::endl;
-	this->_number = inp._number;
-	return (*this);
+const double	&RPN::getResult(void) const {
+	return this->_number.top();
 }

@@ -11,16 +11,11 @@
 /* ************************************************************************** */
 
 #include "RPN.hpp"
-#include <iostream>
 
 int	main(int argc, char **argv) {
 	if (argc == 2) {
-		RPN convert(argv[1]);
-		(void)convert;
-	} else {
-		
+		RPN	rpn(argv[1]);
+		(void)rpn;
 	}
-	return (0);
+	return 0;
 }
-
-//https://thispointer.com/c-convert-double-to-string-and-manage-precision-scientific-notation/

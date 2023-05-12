@@ -15,112 +15,123 @@
 
 # include <iostream>
 # include <sstream>
+# include <cstdlib>
 # include <string>
-# include <ctime>
+# include <sys/time.h>
 # include <vector>
 # include <deque>
-# include <algorithm>
 
 template <class T>
 class PmergeMe {
 public:
 	PmergeMe(void) {};
 
-	PmergeMe(const PmergeMe &inp) {
-		*this = inp;
+	PmergeMe(const PmergeMe &src) {
+		*this = src;
 	};
 
 	~PmergeMe(void) {};
 
-	PmergeMe &operator= (const PmergeMe &inp) {
-		//std::cout << "Copy assignment operator called by <PmergeMe>" << std::endl;
-		this->_number = inp._number;
+	PmergeMe &operator= (const PmergeMe &src) {
+		this->_number = src._number;
 		return (*this);
 	};
 
 	int	init(int argc, char **argv) {
-		for (int i = 1; i < argc; i++) {
-			std::istringstream	iss(argv[i]);
-			int					data;
+		std::istringstream	iss;
+		int					data;
 
+		for (int i = 1; i < argc; i++) {
+			iss.clear();
+			iss.str(argv[i]);
 			iss >> data;
 			if (data < 0 || !iss.eof())
 				return 0;
-			_number.push_back(data);
+			if (atoi(argv[i]) != data)
+				return 0;
+			this->_number.push_back(data);
 		}
 		return 1;
 	}
 
 	const T	&getNumber(void) const {
-		return _number;
+		return this->_number;
 	}
 
-	void	setNumber(T inp) {
-		_number.swap(inp);
+	void	setNumber(const T &inp) {
+		this->_number.clear();
+		this->_number = inp;
 	};
 
 	void	mergeDevide(void) {
-		if (_number.size() < 6) {
-			insertionSort();
+		if (this->_number.size() < 15) {
+			this->insertionSort();
 			return ;
 		}
 
-		PmergeMe b;
-		b.setNumber(T(_number.begin() + _number.size() / 2, _number.end()));
-		_number.erase(_number.begin() + _number.size() / 2, _number.end());
+		PmergeMe	b;
+		typename T::iterator	half(this->_number.begin() + this->_number.size() / 2);
+		typename T::iterator	end(this->_number.end());
 
-		mergeDevide();
+		b.setNumber(T(half, end));
+		this->_number.erase(half, end);
+
+		this->mergeDevide();
 		b.mergeDevide();
 
-		mergeCombine(b);
+		this->mergeCombine(b);
 	};
 
 	void	mergeCombine(PmergeMe &b) {
 		T	merge;
 
-		while (!(_number.empty() || b._number.empty())) {
-			if (_number.front() < b._number.front()) {
-				merge.push_back(_number.front());
-				_number.erase(_number.begin());
+		while (!(this->_number.empty() || b._number.empty())) {
+			if (this->_number.front() < b._number.front()) {
+				merge.push_back(this->_number.front());
+				this->_number.erase(this->_number.begin());
 			} else {
 				merge.push_back(b._number.front());
 				b._number.erase(b._number.begin());
 			}
 		}
-		while (!_number.empty()) {
-			merge.push_back(_number.front());
-			_number.erase(_number.begin());
+		if (!this->_number.empty()) {
+			merge.insert(merge.end(), this->_number.begin(), this->_number.end());
+			this->_number.clear();
 		}
-		while (!b._number.empty()) {
-			merge.push_back(b._number.front());
-			b._number.erase(b._number.begin());
+		if (!b._number.empty()) {
+			merge.insert(merge.end(), b._number.begin(), b._number.end());
+			b._number.clear();
 		}
-		_number.swap(merge);
+
+		this->setNumber(merge);
+		merge.clear();
 	};
 
 	void	insertionSort(void) {
-		for (typename T::iterator it = _number.begin();
-				it != _number.end(); it++)
+		for (typename T::iterator it = this->_number.begin();
+				it != this->_number.end(); it++)
 		{
-			if (it != _number.begin()) {
-				// std::cout << *(it - 1) << " " << *it << "\n";
+			if (it != this->_number.begin()) {
 				typename T::iterator	it2 = it;
 				while (*(it2 - 1) > *it2) {
-					//std::swap(*(it2 - 1), *it2);
 					std::iter_swap(it2 - 1, it2);
-					if (--it2 == _number.begin())
-						break;
+					if (--it2 == this->_number.begin())
+						break ;
 				}
 			}
 		}
 	};
 
-	float	getFuncProcessorTime(void (PmergeMe::*func)(void), PmergeMe &obj) {
-		clock_t	t = clock();
+	// https://stackoverflow.com/a/12722972
+	double	getFuncProcessingTime(void (PmergeMe::*func)(void), PmergeMe &obj) {
+		struct timeval	tvStart, tvStop;
+
+		gettimeofday(&tvStart, 0);
 		(obj.*func)();
-		t = clock() - t;
-		// return (float)t / CLOCKS_PER_SEC;
-		return (float)t * 1000000 / CLOCKS_PER_SEC;
+		gettimeofday(&tvStop, 0);
+
+		return (tvStop.tv_sec - tvStart.tv_sec) * 1000000L
+				+ tvStop.tv_usec - tvStart.tv_usec;
 	}
 
 private:
