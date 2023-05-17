@@ -48,11 +48,11 @@ int	BitcoinExchange::init(const std::string &inp) {
 				if (!std::getline(ifs, data))
 					break ;
 				if (!data.empty()) {
-					switch (intepretLine(data)) {
+					switch (this->intepretLine(data)) {
 						case 0:
 							std::cout << this->_curLine.first
 								<< " => " << this->_curLine.second
-								<< " = " << calculate()
+								<< " = " << this->calculate()
 								<< std::endl;
 							break ;
 
@@ -64,11 +64,17 @@ int	BitcoinExchange::init(const std::string &inp) {
 
 						case 2:
 							std::cout
-								<< "Error: not a positive number."
+								<< "Error: date not in a valid range."
 								<< std::endl;
 							break ;
 
 						case 3:
+							std::cout
+								<< "Error: not a positive number."
+								<< std::endl;
+							break ;
+
+						case 4:
 							std::cout
 								<< "Error: too large a number."
 								<< std::endl;
@@ -121,6 +127,8 @@ int	BitcoinExchange::intepretLine(const std::string &line) {
 		return 1;
 	if (!checkDate(this->_curLine.first))
 		return 1;
+	if (this->_curLine.first < this->_table.begin()->first)
+		return 2;
 
 	std::istringstream	iss(this->_curLine.second);
 	double	val;
@@ -129,9 +137,9 @@ int	BitcoinExchange::intepretLine(const std::string &line) {
 	if (!iss.eof())
 		return 1;
 	if (val < 0)
-		return 2;
-	if (val > 1000)
 		return 3;
+	if (val > 1000)
+		return 4;
 	return 0;
 }
 
@@ -141,7 +149,7 @@ double	BitcoinExchange::calculate(void) const {
 		std::map<std::string, std::string>::const_iterator
 	>	res = this->_table.equal_range(this->_curLine.first);
 
-	if (res.first == res.second && res.first != _table.begin())
+	if (res.first == res.second && res.first != this->_table.begin())
 		res.first--;
 	return atof(this->_curLine.second.c_str())
 		* atof(res.first->second.c_str());
@@ -159,26 +167,20 @@ int	myOpenFile(std::fstream &ifs, const std::string &name, std::ios::openmode fl
 }
 
 int	splitToPair(const std::string &line, const std::string &delim, std::pair<std::string, std::string> &pair) {
-	// std::string::size_type	delimPos = line.find(delim);
-	// std::string::size_type	delimRPos = line.rfind(delim);
-
-	// if (delimPos == std::string::npos || delimPos != delimRPos)
-	// 	return 0;
-	// pair.first = line.substr(0, delimPos);
-	// pair.second = line.substr(delimPos + delim.length());
-	// return 1;
-
 	std::string::size_type	delimPos = line.find(delim);
-
 	if (delimPos == std::string::npos || delimPos != line.rfind(delim))
 		return 0;
-	
+
 	std::string::size_type	notSpace = line.find_first_not_of(" ", 0, delimPos);
 	std::string::size_type	notSpaceL = line.find_last_not_of(" ", delimPos - 1);
+	if (notSpace == std::string::npos || notSpaceL == std::string::npos)
+		return 0;
 	pair.first = line.substr(notSpace, notSpaceL - notSpace + 1);
 
 	notSpace = line.find_first_not_of(" ", delimPos + delim.length());
 	notSpaceL = line.find_last_not_of(" ", line.length() - 1, line.length() - (delimPos + delim.length()));
+	if (notSpace == std::string::npos || notSpaceL == std::string::npos)
+		return 0;
 	pair.second = line.substr(notSpace, notSpaceL - notSpace + 1);
 
 	return 1;
