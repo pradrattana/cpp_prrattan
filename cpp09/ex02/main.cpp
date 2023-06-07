@@ -25,24 +25,24 @@ int	main(int argc, char **argv) {
 			return 1;
 		}
 		byDeque.init(argc, argv);
-
 		std::cout << "Before:  " << byVector << std::endl;
+
 		timeVect = byVector.getFuncProcessingTime(
-			&PmergeMe<std::vector<int> >::mergeDevide, byVector
+			&PmergeMe<std::vector<int> >::mergeInsertionSort, byVector
 		);
 		timeDeque = byDeque.getFuncProcessingTime(
-			&PmergeMe<std::deque<int> >::mergeDevide, byDeque
+			&PmergeMe<std::deque<int> >::mergeInsertionSort, byDeque
 		);
 		std::cout << "After:   " << byVector << std::endl;
 
 		std::cout << "Time to process a range of "
-			<< byVector.getNumber().size()
+			<< byVector.getSequence().size()
 			<< " elements with std::vector : "
 			<< std::fixed << std::setprecision(5) << timeVect
 			<< " us" << std::endl;
 
 		std::cout << "Time to process a range of "
-			<< byDeque.getNumber().size()
+			<< byDeque.getSequence().size()
 			<< " elements with std::deque  : "
 			<< timeDeque
 			<< " us" << std::endl;
