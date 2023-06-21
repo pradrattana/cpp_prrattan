@@ -103,6 +103,8 @@ int	BitcoinExchange::setTable(const std::string &name) {
 		if (data == "date,exchange_rate") {
 			while (1) {
 				if (!std::getline(ifs, data)) {
+					if (this->_table.empty())
+						break ;
 					ifs.close();
 					return 1;
 				}
@@ -136,9 +138,9 @@ int	BitcoinExchange::intepretLine(const std::string &line) {
 	iss >> val;
 	if (!iss.eof())
 		return 1;
-	if (val < 0)
+	if (val <= 0)
 		return 3;
-	if (val > 1000)
+	if (val >= 1000)
 		return 4;
 	return 0;
 }
@@ -148,6 +150,8 @@ double	BitcoinExchange::calculate(void) const {
 		std::map<std::string, std::string>::const_iterator,
 		std::map<std::string, std::string>::const_iterator
 	>	res = this->_table.equal_range(this->_curLine.first);
+	// res.first pointing to the first element that is >= key
+	// res.second pointing to the first element that is > key
 
 	if (res.first == res.second && res.first != this->_table.begin())
 		res.first--;

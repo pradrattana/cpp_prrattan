@@ -46,7 +46,7 @@ public:
 			iss.clear();
 			iss.str(argv[i]);
 			iss >> data;
-			if (data < 0 || !iss.eof())
+			if (data <= 0 || !iss.eof())
 				return 0;
 			if (atoi(argv[i]) != data)
 				return 0;
@@ -111,8 +111,11 @@ public:
 		std::reverse(first, this->_pend.end());
 	}
 
-	typename T::iterator	binarySearch(typename T::iterator r, int x) {
-		typename T::iterator	l = this->_seq.begin(), m;
+	typename T::iterator	binarySearch(int nR, int x) {
+		typename T::iterator	l = this->_seq.begin();
+		typename T::iterator	m;
+		typename T::iterator	r = this->_seq.begin() + nR;
+
 		while (l <= r) {
 			m = l + (r - l) / 2;
 
@@ -131,14 +134,12 @@ public:
 	}
 
 	void	searchAndInsertPend(void) {
-		typename T::iterator	r, pos;
-		int	n = 1, tmp = 2;
+		typename T::iterator	pos;
+		int	n = 1, tmp = 2, r;
 
 		while (!this->_pend.empty()) {
 			tmp += jacobsthal(n - 1) + jacobsthal(n);
-			r = this->_seq.begin() + tmp;
-			if (r > this->_seq.end())
-				r = this->_seq.end();
+			r = (this->_seq.begin() + tmp > this->_seq.end()) ? this->_seq.size() : tmp;
 			for (int i = 0; i < jacobsthal(n) && !this->_pend.empty(); i++) {
 				pos = binarySearch(r, this->_pend.front());
 				this->_seq.insert(pos, this->_pend.front());
@@ -147,28 +148,6 @@ public:
 			n++;
 		}
 	}
-
-	// void	binarySearchInsert() {
-	// 	typename T::iterator	r, pos;
-	// 	int	n = 1, tmp = 2;
-
-	// 	while (1) {
-	// 		tmp += jacobsthal(n - 1) + jacobsthal(n);
-	// 		if ((r = this->_seq.begin() + tmp) >= this->_seq.end())
-	// 			break ;
-	// 		for (int i = 0; i < jacobsthal(n); i++) {
-	// 			pos = binarySearch(r, this->_pend.front());
-	// 			this->_seq.insert(pos, this->_pend.front());
-	// 			this->_pend.erase(this->_pend.begin());
-	// 		}
-	// 		n++;
-	// 	}
-	// 	while (!this->_pend.empty()) {
-	// 		pos = binarySearch(this->_seq.end(), this->_pend.front());
-	// 		this->_seq.insert(pos, this->_pend.front());
-	// 		this->_pend.erase(this->_pend.begin());
-	// 	}
-	// }
 
 	// https://en.wikipedia.org/wiki/Merge-insertion_sort
 	void	mergeInsertionSort(void) {
@@ -187,7 +166,7 @@ public:
 	}
 
 	// https://stackoverflow.com/a/12722972
-	double	getFuncProcessingTime(void (PmergeMe::*func)(void), PmergeMe &obj) {
+	long int	getFuncProcessingTime(void (PmergeMe::*func)(void), PmergeMe &obj) {
 		struct timeval	tvStart, tvStop;
 
 		gettimeofday(&tvStart, 0);
@@ -210,7 +189,7 @@ std::ostream &operator<< (std::ostream &os, const PmergeMe<T> &src) {
 	for (typename T::const_iterator itc = num.begin();
 			itc != num.end(); itc++)
 	{
-		os << *itc << (itc + 1 != num.end() ?  ", " : "");
+		os << *itc << (itc + 1 != num.end() ?  " " : "");
 	}
 	return (os);
 }

@@ -38,14 +38,21 @@ int	main(int argc, char **argv) {
 		std::cout << "Time to process a range of "
 			<< byVector.getSequence().size()
 			<< " elements with std::vector : "
-			<< std::fixed << std::setprecision(5) << timeVect
+			<< timeVect
 			<< " us" << std::endl;
-
 		std::cout << "Time to process a range of "
 			<< byDeque.getSequence().size()
 			<< " elements with std::deque  : "
 			<< timeDeque
 			<< " us" << std::endl;
+
+		// C++11
+		// std::cout << "is std::vector sorted ? "
+		// 	<< std::is_sorted(byVector.getSequence().begin(), byVector.getSequence().end())
+		// 	<< std::endl;
+		// std::cout << "is std::deque sorted  ? "
+		// 	<< std::is_sorted(byDeque.getSequence().begin(), byDeque.getSequence().end())
+		// 	<< std::endl;
 	}
 	return (0);
 }
